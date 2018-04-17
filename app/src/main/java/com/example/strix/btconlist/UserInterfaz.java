@@ -7,11 +7,13 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -20,8 +22,8 @@ import java.util.UUID;
 public class UserInterfaz extends AppCompatActivity {
 
     //1)
-    Button IdEncender, IdApagar,IdDesconectar, btnAbajo, btnIzquierda, btnDerecha;
-    TextView IdBufferIn;
+    Button IdDesconectar;
+    TextView lblX, lblY, lblDir;
     //-------------------------------------------
     Handler bluetoothIn;
     final int handlerState = 0;
@@ -33,7 +35,14 @@ public class UserInterfaz extends AppCompatActivity {
     private static final UUID BTMODULEUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     // String para la direccion MAC
     private static String address = null;
+
     //-------------------------------------------
+    //Variables para el joystick
+    RelativeLayout layout_joystick;
+    ImageView imagenJoysTick, border;
+    JoyStickClass js;
+    //--------------------------------------------
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,13 +50,61 @@ public class UserInterfaz extends AppCompatActivity {
         setContentView(R.layout.activity_user_interfaz);
         //2)
         //Enlaza los controles con sus respectivas vistas
-        IdEncender = (Button) findViewById(R.id.btnEncender);
-        IdApagar = (Button) findViewById(R.id.btnApagar);
-        IdDesconectar = (Button) findViewById(R.id.btnDesconectar);
-        IdBufferIn = (TextView) findViewById(R.id.lblBufferIn);
-        btnAbajo=(Button) findViewById(R.id.btnAbajo);
-        btnDerecha=(Button) findViewById(R.id.btnDerecha);
-        btnIzquierda=(Button) findViewById(R.id.btnIzqui);
+        IdDesconectar = (Button) findViewById(R.id.btnApagar);
+        lblX = (TextView) findViewById(R.id.lblX);
+        lblY=(TextView) findViewById(R.id.lblY);
+        lblDir=(TextView) findViewById(R.id.lblDir);
+
+        //-------------------------------------------------
+        //Enlazando solo Joystick
+
+        layout_joystick=(RelativeLayout) findViewById(R.id.layout_joystick);
+        js = new JoyStickClass(getApplicationContext()
+                , layout_joystick, R.drawable.image_button);
+        js.setStickSize(300, 300);
+        js.setLayoutSize(600, 600);
+        js.setLayoutAlpha(150);
+        js.setStickAlpha(100);
+        js.setOffset(90);
+        js.setMinimumDistance(20);
+
+        layout_joystick.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View arg0, MotionEvent arg1) {
+                js.drawStick(arg1);
+                short x=1, y=1;
+                if (arg1.getAction() == MotionEvent.ACTION_MOVE){
+                    if (js.getX()>200)x=(short)100;
+                    if (js.getX()<-200)x=(short)0;
+                    if (js.getY()>200) y=(short)228;
+                    if (js.getY()<-200) y=(short)128;
+                    if (js.getY()==0)y=(short)50;
+                    if (js.getX()==0)x=(short)50;
+
+                    if(js.getX()<200&&js.getX()>-200){
+                        x=js.getXc();
+                    }
+
+                    if(js.getY()<200&&js.getY()>-200) {
+                        y=js.getYc();
+                        int suma=y+128;
+                        y=(short) suma;
+                    }
+                    lblX.setText("X: "+ String.valueOf(x));
+                    lblY.setText("Y: "+ String.valueOf(y));
+                    //MyConexionBT.write(x);
+                    //MyConexionBT.write(y);
+                }
+
+                if (arg1.getAction() == MotionEvent.ACTION_UP) {
+                    lblX.setText("X: " + "50");
+                    lblY.setText("Y: "+ "50");
+                    //MyConexionBT.write((short)50);
+                    //MyConexionBT.write((short)50);
+                }
+                return true;
+            }
+        });
 
         bluetoothIn = new Handler() {
             public void handleMessage(android.os.Message msg) {
@@ -59,7 +116,7 @@ public class UserInterfaz extends AppCompatActivity {
 
                     if (endOfLineIndex > 0) {
                         String dataInPrint = DataStringIN.substring(0, endOfLineIndex);
-                        IdBufferIn.setText("Dato: " + dataInPrint);//<-<- PARTE A MODIFICAR >->->
+                        //lblX.setText("X " + dataInPrint);//<-<- PARTE A MODIFICAR >->->
                         DataStringIN.delete(0, DataStringIN.length());
                     }
                 }
@@ -72,51 +129,9 @@ public class UserInterfaz extends AppCompatActivity {
         // Configuracion onClick listeners para los botones
         // para indicar que se realizara cuando se detecte
         // el evento de Click
-        IdEncender.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v)
-            {
-                MyConexionBT.write((short)50);//Solo x
-                MyConexionBT.write((short)228);//Solo y
-                IdBufferIn.setText("Datos: 50, 228");
-            }
-        });
-
-        btnAbajo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MyConexionBT.write((short)50); //Solo x
-                MyConexionBT.write((short)128); //Solo y
-                IdBufferIn.setText("Datos: 50, 128");
-
-            }
-        });
-
-        btnIzquierda.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MyConexionBT.write((short)0);//Solo x
-                MyConexionBT.write((short)178);//Solo y
-                IdBufferIn.setText("Datos: 0, 178");
-            }
-        });
-
-        btnDerecha.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MyConexionBT.write((short)100);//Solo x
-                MyConexionBT.write((short) 178);//Solo y
-                IdBufferIn.setText("Datos: 100, 178");
-            }
-        });
-        IdApagar.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                MyConexionBT.write((short)79); //Solo x
-                MyConexionBT.write((short) 75); //Solo y
-            }
-        });
-
         IdDesconectar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
                 if (btSocket!=null)
                 {
                     try {btSocket.close();}
@@ -124,6 +139,7 @@ public class UserInterfaz extends AppCompatActivity {
                     { Toast.makeText(getBaseContext(), "Error", Toast.LENGTH_SHORT).show();;}
                 }
                 finish();
+
             }
         });
     }

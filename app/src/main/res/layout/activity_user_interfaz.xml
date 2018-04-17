@@ -1,85 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".UserInterfaz">
-
-    <TextView
-        android:id="@+id/lblControl"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:text="CONTROL LED"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <Button
-        android:id="@+id/btnEncender"
+    android:layout_height="match_parent" >
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:layout_margin="30dp"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/lblX"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="X: 50"
+            android:textColor="#444444"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/lblY"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Y: 50"
+            android:textColor="#444444"
+            android:textSize="20dp" />
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Angle"
+            android:textColor="#444444"
+            android:textSize="20dp" />
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Distance"
+            android:textColor="#444444"
+            android:textSize="20dp" />
+        <TextView
+            android:id="@+id/lblDir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Direction"
+            android:textColor="#444444"
+            android:textSize="20dp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_joystick"
+        android:layout_width="325dp"
+        android:layout_height="325dp"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="96dp"
-        android:text="Arriba" />
+        android:layout_marginBottom="27dp"
+        android:background="@drawable/image_button_bg"></RelativeLayout>
 
     <Button
         android:id="@+id/btnApagar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="190dp"
-        android:text="APAGAR" />
-
-    <TextView
-        android:id="@+id/lblBufferIn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="121dp"
-        android:text="Dato: "
-        android:textAlignment="textStart"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <Button
-        android:id="@+id/btnDesconectar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="32dp"
-        android:text="DESCONECTAR" />
-
-    <Button
-        android:id="@+id/btnAbajo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="202dp"
-        android:text="Abajo" />
-
-    <Button
-        android:id="@+id/btnIzqui"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/btnAbajo"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="-202dp"
-        android:text="Izquierda" />
-
-    <Button
-        android:id="@+id/btnDerecha"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/btnAbajo"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="-202dp"
-        android:text="Derecha" />
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="50dp"
+        android:layout_marginTop="39dp"
+        android:text="Apagar" />
 </RelativeLayout>

@@ -21,8 +21,8 @@ public class JoyStickClass {
     public static final int STICK_LEFT = 7;
     public static final int STICK_UPLEFT = 8;
 
-    private int STICK_ALPHA = 200;
-    private int LAYOUT_ALPHA = 200;
+    private int STICK_ALPHA = 100;
+    private int LAYOUT_ALPHA = 100;
     private int OFFSET = 0;
 
     private Context mContext;
@@ -103,11 +103,180 @@ public class JoyStickClass {
 
     public int getY() {
         if(distance > min_distance && touch_state) {
-            return position_y;
+            return position_y*-1;
         }
         return 0;
     }
 
+    public short getYc(){
+        short x=0;
+        int geto=getY();
+        if (geto<20&&geto>=0){
+            x=(short)50;
+        }else if (geto>=20&&geto<30) {
+            x = (short) 55;
+        }else if (geto>=30&&geto<39){
+            x= (short) 57.5;
+        }else if (geto>=40&&geto<49) {
+            x = (short) 60;
+        }else if (geto>=50&&geto<59) {
+            x = (short) 62.5;
+        }else if (geto>=60&&geto<69) {
+            x = (short) 65;
+        }else if (geto>=70&&geto<79) {
+            x = (short) 67.5;
+        }else if (geto>=80&&geto<89) {
+            x = (short) 70;
+        }else if (geto>=90&&geto<99) {
+            x = (short) 72.5;
+        }else if (geto>=100&&geto<109) {
+            x = (short) 75;
+        }else if (geto>=110&&geto<119) {
+            x = (short) 77.5;
+        }else if (geto>=120&&geto<129) {
+            x = (short) 80;
+        }else if (geto>=130&&geto<139) {
+            x = (short) 82.5;
+        }else if (geto>=140&&geto<149) {
+            x = (short) 85;
+        }else if (geto>=150&&geto<159) {
+            x = (short) 87.5;
+        }else if (geto>=160&&geto<169) {
+            x = (short) 90;
+        }else if (geto>=170&&geto<179) {
+            x = (short) 92.5;
+        }else if (geto>=180&&geto<189) {
+            x = (short) 95;
+        }else if (geto>=190&&geto<199) {
+            x = (short) 97.5;
+        }
+
+        if(geto>-20&&geto<=0){
+            x=(short)50;
+        }else if (geto<=-20&&geto>-30) {
+            x = (short) 45;
+        }else if (geto<=-30&&geto>-39){
+            x= (short) 42.5;
+        }else if (geto<=-40&&geto>-49) {
+            x = (short) 40;
+        }else if (geto<=-50&&geto>-59) {
+            x = (short) 37.5;
+        }else if (geto<=-60&&geto>-69) {
+            x = (short) 35;
+        }else if (geto<=-70&&geto>-79) {
+            x = (short) 32.5;
+        }else if (geto<=-80&&geto>-89) {
+            x = (short) 30;
+        }else if (geto<=-90&&geto>-99) {
+            x = (short) 27.5;
+        }else if (geto<=-100&&geto>-109) {
+            x = (short) 25;
+        }else if (geto<=-110&&geto>-119) {
+            x = (short) 22.5;
+        }else if (geto<=-120&&geto>-129) {
+            x = (short) 20;
+        }else if (geto<=-130&&geto>-139) {
+            x = (short) 17.5;
+        }else if (geto<=-140&&geto>-149) {
+            x = (short) 15;
+        }else if (geto<=-150&&geto>-159) {
+            x = (short) 12.5;
+        }else if (geto<=-160&&geto>-169) {
+            x = (short) 10;
+        }else if (geto<=-170&&geto>-179) {
+            x = (short) 7.5;
+        }else if (geto<=-180&&geto>-189) {
+            x = (short) 5;
+        }else if (geto<=-190&&geto>-199) {
+            x = (short) 2.5;
+        }
+        return x;
+    }
+
+    public short getXc(){
+        short x=0;
+        int geo=getX();
+        if(geo<20&&geo>=0){
+            x=(short) 50;
+        }else if (geo>=20&&geo<30) {
+            x = (short) 55;
+        }else if (geo>=30&&geo<39){
+            x= (short) 57.5;
+        }else if (geo>=40&&geo<49) {
+            x = (short) 60;
+        }else if (geo>=50&&geo<59) {
+            x = (short) 62.5;
+        }else if (geo>=60&&geo<69) {
+            x = (short) 65;
+        }else if (geo>=70&&geo<79) {
+            x = (short) 67.5;
+        }else if (geo>=80&&geo<89) {
+            x = (short) 70;
+        }else if (geo>=90&&geo<99) {
+            x = (short) 72.5;
+        }else if (geo>=100&&geo<109) {
+            x = (short) 75;
+        }else if (geo>=110&&geo<119) {
+            x = (short) 77.5;
+        }else if (geo>=120&&geo<129) {
+            x = (short) 80;
+        }else if (geo>=130&&geo<139) {
+            x = (short) 82.5;
+        }else if (geo>=140&&geo<149) {
+            x = (short) 85;
+        }else if (geo>=150&&geo<159) {
+            x = (short) 87.5;
+        }else if (geo>=160&&geo<169) {
+            x = (short) 90;
+        }else if (geo>=170&&geo<179) {
+            x = (short) 92.5;
+        }else if (geo>=180&&geo<189) {
+            x = (short) 95;
+        }else if (geo>=190&&geo<199) {
+            x = (short) 97.5;
+        }
+
+        if (geo>-20&&geo<=0){
+            x=(short)50;
+        }else if (geo<=-20&&geo>-30) {
+            x = (short) 45;
+        }else if (geo<=-30&&geo>-39){
+            x= (short) 42.5;
+        }else if (geo<=-40&&geo>-49) {
+            x = (short) 40;
+        }else if (geo<=-50&&geo>-59) {
+            x = (short) 37.5;
+        }else if (geo<=-60&&geo>-69) {
+            x = (short) 35;
+        }else if (geo<=-70&&geo>-79) {
+            x = (short) 32.5;
+        }else if (geo<=-80&&geo>-89) {
+            x = (short) 30;
+        }else if (geo<=-90&&geo>-99) {
+            x = (short) 27.5;
+        }else if (geo<=-100&&geo>-109) {
+            x = (short) 25;
+        }else if (geo<=-110&&geo>-119) {
+            x = (short) 22.5;
+        }else if (geo<=-120&&geo>-129) {
+            x = (short) 20;
+        }else if (geo<=-130&&geo>-139) {
+            x = (short) 17.5;
+        }else if (geo<=-140&&geo>-149) {
+            x = (short) 15;
+        }else if (geo<=-150&&geo>-159) {
+            x = (short) 12.5;
+        }else if (geo<=-160&&geo>-169) {
+            x = (short) 10;
+        }else if (geo<=-170&&geo>-179) {
+            x = (short) 7.5;
+        }else if (geo<=-180&&geo>-189) {
+            x = (short) 5;
+        }else if (geo<=-190&&geo>-199) {
+            x = (short) 2.5;
+        }
+        return x;
+    }
     public float getAngle() {
         if(distance > min_distance && touch_state) {
             return angle;
